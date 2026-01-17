@@ -16,8 +16,6 @@ import java.util.function.Function;
 
 @Service
 public class JwtServiceImpl implements JwtService {
-    // 256-bit key for HMAC-SHA256 (32 bytes encoded in Base64)
-    // In production, use an environment variable
     private static final String SECRET_KEY = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
 
     @Override
@@ -35,15 +33,8 @@ public class JwtServiceImpl implements JwtService {
                 .compact();
     }
 
-    // Adapt to interface which might expect String username, but better to use
-    // UserDetails
     @Override
     public String generateToken(String username) {
-        // Fallback or deprecated, simpler to carry full UserDetails preferably
-        // For now, let's keep the interface clean or overloading.
-        // If the interface defined `generateToken(String)`, we need that.
-        // But for best practice we usually pass UserDetails.
-        // Let's assume we can change the interface too.
         return null;
     }
 
