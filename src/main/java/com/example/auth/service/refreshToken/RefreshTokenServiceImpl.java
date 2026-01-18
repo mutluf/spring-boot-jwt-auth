@@ -5,6 +5,7 @@ import com.example.auth.repository.RefreshTokenRepository;
 import com.example.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -41,5 +42,11 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
             throw new RuntimeException("Refresh token was expired. Please make a new sign in request");
         }
         return token;
+    }
+
+    @Override
+    @Transactional
+    public void deleteByUserId(Long userId) {
+        refreshTokenRepository.deleteByUserId(userId);
     }
 }

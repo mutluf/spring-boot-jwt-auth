@@ -71,4 +71,14 @@ public class AuthController {
                                 }).orElseThrow(() -> new RuntimeException("Refresh token is not in database!"));
         }
 
+        @PostMapping("/logout")
+        public ResponseEntity<Void> logout() {
+                var auth = org.springframework.security.core.context.SecurityContextHolder.getContext()
+                                .getAuthentication();
+                if (auth != null && auth.getPrincipal() instanceof User) {
+                        User user = (User) auth.getPrincipal();
+                        refreshTokenService.deleteByUserId(user.getId());
+                }
+                return ResponseEntity.ok().build();
+        }
 }
